@@ -6,7 +6,7 @@
 /*   By: cyaid <cyaid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 22:57:47 by cyaid             #+#    #+#             */
-/*   Updated: 2024/11/01 22:42:24 by cyaid            ###   ########.fr       */
+/*   Updated: 2024/11/08 04:44:48 by cyaid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,41 +24,86 @@
 # include <pthread.h>
 #include <stdbool.h>
 
-typedef struct relevent_info
+
+typedef struct s_error_code
 {
+    char *code[5];
+}   t_error_code;
+
+typedef struct s_philo t_philo;
+
+typedef struct s_philo_acces
+{
+    
+    int i;
+    int opt;
+    int nb[5];
     int nb_philo;
     int time_die;
     int time_sleep;
     int time_eat;
-    bool max_meal;
-    
-}   r_info;
+    int max_meal;
+    unsigned long start;
+    int check;
+    bool isdead;
+    int philo_done;
+    bool    end;
+    t_error_code  error_code;
+    pthread_mutex_t *forks;
+}   t_philo_acces;
 
-typedef struct error_code
+
+typedef struct s_philo
 {
-    char *code[4];
-    
-    
-}   r_code;
-
-
-typedef struct philo
-{
+    pthread_t pid;
+    pthread_mutex_t *left_fork;
+    pthread_mutex_t *right_fork;
+    int index;
+    int last_meal;
+    int nb_meal;
     int i;
-    int opt;
-    int nb[4];
-    int nb_philo;
-    r_info relevent_info;
-    r_code  error_code;
-}   t_data;
+    struct s_philo_acces *ptr_data;
+    
+}   t_philo;
 
 
-void	only_nbr(char **av, t_data *data);
-void	number_of_arg(char **av, t_data *data);
-void	parsing(char **av, t_data *data, t_data *info);
-void    philo(t_data *data);
-int	valid_number(t_data *data);
-int	problem(int i, t_data *data);
 
+//PARSING//
+
+void	parsing(char **av, t_philo_acces *data);
+void	only_nbr(char **av, t_philo_acces *data);
+void	number_of_arg(char **av, t_philo_acces *data);
+void    philo(t_philo_acces *data);
+int	valid_number(t_philo_acces *data);
+int	problem(int i, t_philo_acces *data);
+
+//INIT//
+
+size_t	get_milliseconds(void);
+void	init_info(t_philo_acces *data);
+void	init_error(t_philo_acces *data);
+int	init_philo(t_philo_acces *data, t_philo **philo);
+int	init_thread(t_philo_acces *data, t_philo *philo);
+
+//UTILS//
+
+int	end_meal(t_philo *philo);
+int	is_dead(t_philo *philo);
+int	ft_death(t_philo_acces *data, t_philo *philo, int i);
+
+//ROUTINE//
+
+void	*routine(void *arg);
+
+
+//ACTION//
+
+void    go_think(t_philo *philo);
+void    go_eat(t_philo *philo);
+void    go_sleep(t_philo *philo);
+
+//PRINT//
+
+void    print(t_philo *philo, int REASON);
 
 #endif

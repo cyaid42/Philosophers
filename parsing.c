@@ -6,22 +6,20 @@
 /*   By: cyaid <cyaid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 04:04:25 by cyaid             #+#    #+#             */
-/*   Updated: 2024/11/01 23:16:09 by cyaid            ###   ########.fr       */
+/*   Updated: 2024/11/07 05:03:43 by cyaid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	parsing(char **av, t_data *data, t_data *info)
+void	parsing(char **av, t_philo_acces *data)
 {
 	number_of_arg(av, data);
-	
 	only_nbr(av, data);
 	valid_number(data);
-	// printf("%d\n", data->relevent_info.max_meal);
 }
 
-void	number_of_arg(char **av, t_data *data)
+void	number_of_arg(char **av, t_philo_acces *data)
 {
 	data->i = 0;
 	while (av[data->i + 1])
@@ -37,7 +35,7 @@ void	number_of_arg(char **av, t_data *data)
 		data->opt = 0;
 }
 
-void	only_nbr(char **av, t_data *data)
+void	only_nbr(char **av, t_philo_acces *data)
 {
 	int	i;
 	int	j;
@@ -62,22 +60,26 @@ void	only_nbr(char **av, t_data *data)
 		k++;
 		j = 0;
 	}
+	init_info(data);
 }
 
-int	problem(int i, t_data *data)
+int	problem(int i, t_philo_acces *data)
 {
 	printf("Error\n%s\n", data->error_code.code[i]);
 	exit (1);
 }
 
-int	valid_number(t_data *data)
+int	valid_number(t_philo_acces *data)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (data->nb[i] != data->nb[5])
+	j = 4;
+	if (data->opt == 1)
+		j = 5;
+	while (i < j)
 	{
-			printf("%d\n", i);
 		if (data->nb[i] < 1)
 		{
 			problem(i, data);

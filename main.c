@@ -6,7 +6,7 @@
 /*   By: cyaid <cyaid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 01:03:10 by cyaid             #+#    #+#             */
-/*   Updated: 2024/11/01 22:44:20 by cyaid            ###   ########.fr       */
+/*   Updated: 2024/11/08 04:41:47 by cyaid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,39 @@ void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
-void	init_error(t_data *data)
+
+
+
+int	ft_check(t_philo_acces *data, t_philo *philo)
 {
-	data->error_code.code[0] = "Not enough philosophers";
-	data->error_code.code[1] = "Time to die invalid";
-	data->error_code.code[2] = "Time to eat invalid";
-	data->error_code.code[3] = "Time to sleep invalid";
-	data->error_code.code[4] = "Number of time each philosopher must eat invalid";
+	int	i;
+
+	while (1)
+	{
+		i = 0;
+		while (i < data->nb_philo)
+		{
+			if (ft_death(data, philo, i))
+				return (1);
+			if (end_meal(philo) == 1)
+				return (printf("REPAS MAX\n"));
+			i++;
+		}
+	}
+	return (0);
 }
 
 int	main(int ac, char **av)
 {
-	static t_data	data = {0};
-	static t_data	info = {0};
+	t_philo_acces	data  = {0};
+	t_philo			*philo = {0};
+
 	init_error(&data);
-	parsing(av, &data, &info);
-	// philo()
+	parsing(av, &data);
+	if (init_philo(&data, &philo))
+		return (-1);
+	if (init_thread(&data, philo))
+		return (-1);
+	ft_check(&data, philo);
+	// join threads
 }

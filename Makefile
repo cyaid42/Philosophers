@@ -1,35 +1,38 @@
-NAME = pipex
+NAME = philo
 
 SRCS = main.c\
-	   parsing.c\
-	   philo.c\
-
+		parsing.c\
+		routine.c\
+		init.c\
+		utils.c\
+		action.c\
+		print.c\
+		
+IFLAGS = -Iincludes
 
 OBJS = ${SRCS:.c=.o}
 
 CC = cc
 
-CCFLAGS = -g
+CFLAGS = -g3
 
 RM = rm -f
 
 all: ${NAME}
 
-$(NAME): $(OBJS)
-	$(MAKE) -C ./Libft
-	${CC}  $(CCFLAGS) $(SRCS) -o $(NAME)
 
-.c.o:
+${NAME}: $(OBJS)
+	${CC} ${CFLAGS} ${SRCS} -o ${NAME}
+
+%.c:%.o
 			${CC} -c $< -o ${<:.c=.o} 
 
 
 clean:
-			${RM} ${OBJS} 
-			$(MAKE) clean -C ./Libft
+			${RM} ${OBJS}
 
 fclean: clean
 			${RM} ${NAME}
-			$(MAKE) fclean -C ./Libft
 
 re: fclean all
 
