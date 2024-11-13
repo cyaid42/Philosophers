@@ -6,7 +6,7 @@
 /*   By: cyaid <cyaid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 04:04:25 by cyaid             #+#    #+#             */
-/*   Updated: 2024/11/07 05:03:43 by cyaid            ###   ########.fr       */
+/*   Updated: 2024/11/13 04:42:20 by cyaid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	number_of_arg(char **av, t_philo_acces *data)
 		data->opt = 1;
 	else
 		data->opt = 0;
+	data->i = 0;
 }
 
 void	only_nbr(char **av, t_philo_acces *data)

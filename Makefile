@@ -14,7 +14,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = cc
 
-CFLAGS = -g3
+CFLAGS = -g3 -Wall -Werror -Wextra
 
 RM = rm -f
 
@@ -24,7 +24,7 @@ all: ${NAME}
 ${NAME}: $(OBJS)
 	${CC} ${CFLAGS} ${SRCS} -o ${NAME}
 
-%.c:%.o
+.c:.o
 			${CC} -c $< -o ${<:.c=.o} 
 
 
