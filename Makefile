@@ -4,7 +4,8 @@ SRCS = main.c\
 		parsing.c\
 		routine.c\
 		init.c\
-		utils.c\
+		death.c\
+		meal_count.c\
 		action.c\
 		print.c\
 		
@@ -14,7 +15,7 @@ OBJS = ${SRCS:.c=.o}
 
 CC = cc
 
-CFLAGS = -g3 -Wall -Werror -Wextra
+CFLAGS = -g3 -Wall -Werror -Wextra -pthread
 
 RM = rm -f
 

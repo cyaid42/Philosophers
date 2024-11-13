@@ -6,7 +6,7 @@
 /*   By: cyaid <cyaid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 22:57:47 by cyaid             #+#    #+#             */
-/*   Updated: 2024/11/13 10:21:51 by cyaid            ###   ########.fr       */
+/*   Updated: 2024/11/13 21:59:43 by cyaid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_philo_acces
 	pthread_mutex_t			m_is_dead;
 	pthread_mutex_t			m_end_meal;
 	pthread_mutex_t			m_last_meal;
+	pthread_mutex_t			m_count_meal;
 	pthread_mutex_t			m_full;
 }							t_philo_acces;
 

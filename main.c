@@ -6,16 +6,11 @@
 /*   By: cyaid <cyaid@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 01:03:10 by cyaid             #+#    #+#             */
-/*   Updated: 2024/11/13 10:04:53 by cyaid            ###   ########.fr       */
+/*   Updated: 2024/11/13 22:25:46 by cyaid            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
 
 void	free_mutex(t_philo_acces *data, t_philo *philo)
 {
@@ -34,6 +29,7 @@ void	free_mutex(t_philo_acces *data, t_philo *philo)
 	pthread_mutex_destroy(&data->m_print);
 	pthread_mutex_destroy(&data->m_is_dead);
 	pthread_mutex_destroy(&data->m_full);
+	pthread_mutex_destroy(&data->m_count_meal);
 }
 
 int	ft_check(t_philo_acces *data, t_philo *philo)
@@ -66,6 +62,8 @@ int	init_mutex(t_philo_acces *data)
 	if (pthread_mutex_init(&data->m_last_meal, NULL))
 		return (1);
 	if (pthread_mutex_init(&data->m_full, NULL))
+		return (1);
+	if (pthread_mutex_init(&data->m_count_meal, NULL))
 		return (1);
 	return (0);
 }
